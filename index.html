@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <h1>Taş - Kağıt - Makas</h1>
+
+    <div class="secim">
+        <button onclick="playGame('tas')">👊</button>
+        <button onclick="playGame('kagit')">🖐️</button>
+        <button onclick="playGame('makas')">✌️</button>
+    </div>
+
+    <div id="oyuncuEkrani">OYUNCU: </div>
+    <div id="bilgisayarEkrani">BİLGİSAYAR: </div>
+    <div id="sonucEkrani"></div>
+
+    <div class="puanEkranı">Oyuncu Skor:
+        <span id="oyuncuPuanEkrani">0</span>
+    </div>
+
+    <div class="puanEkranı">Bilgisayar Skor:
+        <span id="bilgisayarPuanEkrani">0</span>
+    </div>
+
+    <script>
+        const secim = ["tas", "kagit", "makas"];
+        const oyuncuEkrani = document.getElementById("oyuncuEkrani");
+        const bilgisayarEkrani = document.getElementById("bilgisayarEkrani");
+        const sonucEkrani = document.getElementById("sonucEkrani");
+        const oyuncuPuanEkrani = document.getElementById("oyuncuPuanEkrani");
+        const bilgisayarPuanEkrani = document.getElementById("bilgisayarPuanEkrani");
+        let oyuncuPuan = 0;
+        let bilgisayarPuan = 0;
+
+        function playGame(oyuncuSecimi) {
+
+            const bilgisayarSecimi = secim[Math.floor(Math.random() * 3)];
+
+            console.log(bilgisayarSecimi);
+            let result = "";
+
+            if (oyuncuSecimi === bilgisayarSecimi) {
+                result = "BERABERE";
+            }
+            else {
+                switch (oyuncuSecimi) {
+                    case "tas":
+                        result = (bilgisayarSecimi === "makas") ? "KAZANDINIZ" : "KAYBETTİNİZ";
+                        break;
+                    case "kagit":
+                        result = (bilgisayarSecimi === "tas") ? "KAZANDINIZ" : "KAYBETTİNİZ";
+                        break;
+                    case "makas":
+                        result = (bilgisayarSecimi === "kagit") ? "KAZANDINIZ" : "KAYBETTİNİZ";
+                        break;
+                }
+            }
+            oyuncuEkrani.textContent = "OYUNCU: " + oyuncuSecimi;
+            bilgisayarEkrani.textContent = "BİLGİSAYAR: " + bilgisayarSecimi;
+            sonucEkrani.textContent = result;
+
+            sonucEkrani.classList.remove("greenText", "redText");
+
+            switch (result) {
+                case "KAZANDINIZ":
+                    sonucEkrani.classList.add("greenText");
+                    oyuncuPuan++;
+                    oyuncuPuanEkrani.textContent = oyuncuPuan;
+                    break;
+                case "KAYBETTİNİZ":
+                    sonucEkrani.classList.add("redText");
+                    bilgisayarPuan++;
+                    bilgisayarPuanEkrani.textContent = bilgisayarPuan;
+                    break;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
